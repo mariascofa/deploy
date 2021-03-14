@@ -206,26 +206,25 @@ class TeacherDeleteView(View):
         return HttpResponseRedirect(reverse('update_teacher', args=[teacher_id]))
 
 
-# class StudentView(View):
-#     """Displays a complete list of all students"""
-#     def get(self, request):
-#         """Gets all the data info of the each
-#         student in the model and transfers it to the template"""
-#         compile_task.delay()
-#         students = Student.objects.all()
-#         myFilter = StudentFilter(request.GET, queryset= students)
-#         students = myFilter.qs
-#         return render(
-#             request=request,
-#             template_name='index.html',
-#             context={"students": students, "title" : "Students", "myFilter": myFilter} )
+class StudentView(View):
+    """Displays a complete list of all students"""
+    def get(self, request):
+        """Gets all the data info of the each
+        student in the model and transfers it to the template"""
+        students = Student.objects.all()
+        myFilter = StudentFilter(request.GET, queryset= students)
+        students = myFilter.qs
+        return render(
+            request=request,
+            template_name='index.html',
+            context={"students": students, "title" : "Students", "myFilter": myFilter} )
 
 # @method_decorator(cache_page(settings.CACHE_TTL), name="dispatch")
-class StudentView(ListView):
-    """Displays a complete list of all students"""
-    model = Student
-    template_name = "student_list.html"
-    context_object_name = 'students'
+# class StudentView(ListView):
+#     """Displays a complete list of all students"""
+#     model = Student
+#     template_name = "student_list.html"
+#     context_object_name = 'students'
 
 
 
